@@ -2,8 +2,8 @@
 
 #### This is a Web Application which matches your Query image to your Reference Database and then retrieving the image from the database with the highest similarity.
 
-The objective of this exercise is to evaluate your familiarity with
-    - Rest APIs
+This project is build using - 
+    - Django and Django Rest Framework
     - React
 
 #### This is how this application works -
