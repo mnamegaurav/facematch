@@ -2,9 +2,7 @@
 
 #### This is a Web Application which matches your Query image to your Reference Database and then retrieving the image from the database with the highest similarity.
 
-This project is build using - 
-    - Django and Django Rest Framework
-    - React
+This project is build using React.
 
 #### This is how this application works -
 
@@ -25,7 +23,7 @@ This project is build using -
 
     8. The API matches two cropped faces and returns the similarity.
 
-> *NOTE : Reference Image / Target Image is the suspect whom you want to find out in Query Image.*
+> _NOTE : Reference Image / Target Image is the suspect whom you want to find out in Query Image._
 
 You can use Face recognition api documentation -
-[https://skylark-test-site.scrollhelp.site/FMAD/Face-Recognition-API.81821697.html]
+https://skylark-test-site.scrollhelp.site/FMAD/Face-Recognition-API.81821697.html
