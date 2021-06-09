@@ -11,8 +11,8 @@ const initialState = {
 export const Context = React.createContext(initialState);
 
 export const useStore = () => {
-  const [state, dispatch] = React.useContext(Context);
-  return [state, dispatch];
+  // Below line will return -> [state, dispatch]
+  return React.useContext(Context);
 };
 
 const Store = (props) => {
