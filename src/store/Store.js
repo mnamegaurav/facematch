@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { reducer } from "./reducer";
 
 const initialState = {
@@ -22,6 +24,10 @@ const Store = (props) => {
   return (
     <Context.Provider value={[state, dispatch]}>{children}</Context.Provider>
   );
+};
+
+Store.propTypes = {
+  children: PropTypes.object.isRequired,
 };
 
 export default Store;

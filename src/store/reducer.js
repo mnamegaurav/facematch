@@ -1,8 +1,6 @@
 import {
   ADD_REF_IMAGE,
-  REMOVE_REF_IMAGE,
   ADD_QUERY_IMAGE,
-  REMOVE_QUERY_IMAGE,
   NEXT_STEP,
   PREVIOUS_STEP,
   UI_LOADING_START,
@@ -12,26 +10,15 @@ import {
 export const reducer = (state, action) => {
   switch (action.type) {
     case ADD_REF_IMAGE:
+      console.log(action.payload);
       return {
         ...state,
         refImages: [...state.refImages, action.payload],
-      };
-    case REMOVE_REF_IMAGE:
-      return {
-        ...state,
-        refImages: state.refImages.filter(
-          (refImage) => refImage.id === action.payload
-        ),
       };
     case ADD_QUERY_IMAGE:
       return {
         ...state,
         queryImage: action.payload,
-      };
-    case REMOVE_QUERY_IMAGE:
-      return {
-        ...state,
-        queryImage: null,
       };
     case NEXT_STEP:
       return {
