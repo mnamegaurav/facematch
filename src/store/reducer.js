@@ -3,9 +3,17 @@ import {
   ADD_QUERY_IMAGE,
   NEXT_STEP,
   PREVIOUS_STEP,
+  RESET_STEP,
   UI_LOADING_START,
   UI_LOADING_END,
 } from "./types";
+
+export const initialState = {
+  uiLoading: false,
+  refImages: [], // [{id: 1, imageData: 'something'}]
+  queryImage: null,
+  stepCount: 1,
+};
 
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -38,6 +46,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         uiLoading: false,
+      };
+    case RESET_STEP:
+      return {
+        ...state,
+        ...initialState,
       };
     default:
       return state;

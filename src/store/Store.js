@@ -1,14 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { reducer } from "./reducer";
-
-const initialState = {
-  uiLoading: false,
-  refImages: [], // [{id: 1, imageData: 'something'}]
-  queryImage: null,
-  stepCount: 1,
-};
+import { reducer, initialState } from "./reducer";
 
 export const Context = React.createContext(initialState);
 
@@ -22,7 +15,9 @@ const Store = (props) => {
   const { children } = props;
 
   return (
-    <Context.Provider value={[state, dispatch]}>{children}</Context.Provider>
+    <Context.Provider value={[state, dispatch]} displayName="Global State">
+      {children}
+    </Context.Provider>
   );
 };
 

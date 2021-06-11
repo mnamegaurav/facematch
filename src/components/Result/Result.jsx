@@ -6,12 +6,13 @@ import { useStore } from "../../store";
 import { getMatchResults } from "../../utils/skyLark";
 
 function Result(props) {
-  const { handlePrevStep } = props;
+  const { handleReset } = props;
   const [state] = useStore();
 
   React.useEffect(() => {
     if (state.refImages.length === 2 && state.queryImage) {
       state.refImages.forEach((targetImage) => {
+        console.log(targetImage);
         getMatchResults(targetImage, state.queryImage);
         // get the match results,
         // if good match results then show
@@ -35,12 +36,8 @@ function Result(props) {
         </Grid>
         <Grid container item xs={12} sm={6}>
           <Grid item xs={4}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handlePrevStep}
-            >
-              Prev
+            <Button variant="contained" color="primary" onClick={handleReset}>
+              Reset
             </Button>
           </Grid>
         </Grid>
@@ -50,7 +47,7 @@ function Result(props) {
 }
 
 Result.propTypes = {
-  handlePrevStep: PropTypes.func.isRequired,
+  handleReset: PropTypes.func.isRequired,
 };
 
 export default Result;

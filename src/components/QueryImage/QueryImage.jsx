@@ -8,7 +8,7 @@ import { ADD_QUERY_IMAGE } from "../../store/types";
 import { useStore } from "../../store";
 
 function QueryImage(props) {
-  const { handleNextStep, handlePrevStep } = props;
+  const { handleNextStep } = props;
   const [state, dispatch] = useStore();
 
   const handleChange = (loadFiles) => {
@@ -47,15 +47,6 @@ function QueryImage(props) {
               Next
             </Button>
           </Grid>
-          <Grid item xs={4}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handlePrevStep}
-            >
-              Prev
-            </Button>
-          </Grid>
         </Grid>
       </Grid>
     </div>
@@ -64,7 +55,6 @@ function QueryImage(props) {
 
 QueryImage.propTypes = {
   handleNextStep: PropTypes.func.isRequired,
-  handlePrevStep: PropTypes.func.isRequired,
 };
 
 export default QueryImage;

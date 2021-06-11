@@ -4,5 +4,6 @@ export const ADD_QUERY_IMAGE = "ADD_QUERY_IMAGE";
 export const REMOVE_QUERY_IMAGE = "REMOVE_QUERY_IMAGE";
 export const NEXT_STEP = "NEXT_STEP";
 export const PREVIOUS_STEP = "PREVIOUS_STEP";
+export const RESET_STEP = "RESET_STEP";
 export const UI_LOADING_START = "UI_LOADING_START";
 export const UI_LOADING_END = "UI_LOADING_END";
