@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Grid, Button } from "@material-ui/core";
 
 import ImageDropzone from "../common/ImageDropzone";
-import { getCroppedFace } from "../../utils/faceApi";
+import { cropAFace } from "../../utils/faceApi";
 import { ADD_QUERY_IMAGE } from "../../store/types";
 import { useStore } from "../../store";
 
@@ -15,7 +15,7 @@ function QueryImage(props) {
     // save the image to global state
     dispatch({
       type: ADD_QUERY_IMAGE,
-      payload: getCroppedFace(loadFiles[0]),
+      payload: cropAFace(loadFiles[0]),
     });
   };
 

@@ -3,11 +3,9 @@ import PropTypes from "prop-types";
 import { Grid, Button } from "@material-ui/core";
 
 import ImageDropzone from "../common/ImageDropzone";
-import { getCroppedFace } from "../../utils/faceApi";
+import { getCroppedFaces } from "../../utils/faceApi";
 import { ADD_REF_IMAGE } from "../../store/types";
 import { useStore } from "../../store";
-
-const maxFiles = 2;
 
 function Home(props) {
   const { handleNextStep } = props;
@@ -15,12 +13,10 @@ function Home(props) {
 
   const handleChange = (loadFiles) => {
     // save all the images to global state
-    if (loadFiles.length === maxFiles) {
-      loadFiles.forEach(async (image) => {
-        dispatch({
-          type: ADD_REF_IMAGE,
-          payload: getCroppedFace(image),
-        });
+    if (loadFiles.length === state.maxRefImages) {
+      dispatch({
+        type: ADD_REF_IMAGE,
+        payload: getCroppedFaces(loadFiles),
       });
     }
   };
@@ -38,7 +34,7 @@ function Home(props) {
         <Grid item xs={12}>
           <ImageDropzone
             onChange={handleChange}
-            maxFiles={maxFiles}
+            maxFiles={state.maxRefImages}
             dropzoneText="Click or Drop a File to Upload. (Max Limit 2 Files of 5 MB each Only"
           />
         </Grid>
@@ -48,7 +44,7 @@ function Home(props) {
               variant="contained"
               color="primary"
               onClick={handleNextStep}
-              disabled={state.refImages.length !== maxFiles}
+              disabled={state.refImages.length !== state.maxRefImages}
             >
               Next
             </Button>
