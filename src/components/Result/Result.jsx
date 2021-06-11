@@ -3,10 +3,22 @@ import PropTypes from "prop-types";
 import { Grid, Button } from "@material-ui/core";
 
 import { useStore } from "../../store";
+import { getMatchResults } from "../../utils/skyLark";
 
 function Result(props) {
   const { handlePrevStep } = props;
   const [state] = useStore();
+
+  React.useEffect(() => {
+    if (state.refImages.length === 2 && state.queryImage) {
+      state.refImages.forEach((targetImage) => {
+        getMatchResults(targetImage, state.queryImage);
+        // get the match results,
+        // if good match results then show
+        // else show no results
+      });
+    }
+  }, [state.refImages, state.queryImage]);
 
   return (
     <div>

@@ -10,7 +10,6 @@ import {
 export const reducer = (state, action) => {
   switch (action.type) {
     case ADD_REF_IMAGE:
-      console.log(action.payload);
       return {
         ...state,
         refImages: [...state.refImages, action.payload],

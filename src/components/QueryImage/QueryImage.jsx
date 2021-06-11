@@ -3,18 +3,19 @@ import PropTypes from "prop-types";
 import { Grid, Button } from "@material-ui/core";
 
 import ImageDropzone from "../common/ImageDropzone";
+import { getCroppedFace } from "../../utils/faceApi";
 import { ADD_QUERY_IMAGE } from "../../store/types";
 import { useStore } from "../../store";
 
 function QueryImage(props) {
   const { handleNextStep, handlePrevStep } = props;
-  const [, dispatch] = useStore();
+  const [state, dispatch] = useStore();
 
   const handleChange = (loadFiles) => {
     // save the image to global state
     dispatch({
       type: ADD_QUERY_IMAGE,
-      payload: loadFiles[0],
+      payload: getCroppedFace(loadFiles[0]),
     });
   };
 
@@ -41,6 +42,7 @@ function QueryImage(props) {
               variant="contained"
               color="primary"
               onClick={handleNextStep}
+              disabled={!state.queryImage}
             >
               Next
             </Button>
