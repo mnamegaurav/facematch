@@ -1,37 +1,8 @@
 import axios from "axios";
 
 import { SKY_LARK_API, SKY_LARK_API_KEY } from "../api";
-import { ADD_INITIAL_RESPONSES, ADD_MATCH_RESULTS } from "../store/types";
 
-export const getMatchResults =
-  (targetImage, queryImage) => async (dispatch) => {
-    const formData = new FormData();
-    formData.append("target_image", targetImage);
-    formData.append("query_image", queryImage);
-    formData.append("key", SKY_LARK_API_KEY);
-
-    const config = {
-      headers: {
-        accept: "application/json",
-        "Content-Type": "multipart/form-data",
-      },
-    };
-
-    axios
-      .post(SKY_LARK_API, formData, config)
-      .then((res) => {
-        console.log(res);
-        dispatch({
-          type: ADD_INITIAL_RESPONSES,
-          payload: res.data,
-        });
-      })
-      .catch((err) => {
-        console.log("Error in Skylark API POST", err);
-      });
-  };
-
-export const getMatchResultById = (id) => (dispatch) => {
+export const getMatchResultById = async (id) => {
   const config = {
     headers: {
       accept: "application/json",
@@ -41,16 +12,38 @@ export const getMatchResultById = (id) => (dispatch) => {
     },
   };
 
-  axios
-    .get(`${SKY_LARK_API}${id}`, config)
-    .then((res) => {
-      console.log(res);
-      dispatch({
-        type: ADD_MATCH_RESULTS,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      console.log("Error in Skylark API GET", err);
-    });
+  try {
+    const { data } = await axios.get(`${SKY_LARK_API}${id}`, config);
+    if (data && data.status === "pending") {
+      getMatchResultById(data.id);
+    } else if (data.status === "success") {
+      return data;
+    }
+  } catch (err) {
+    console.log("Error in Skylark API GET", err);
+  }
+};
+
+export const getMatchResults = async (targetImage, queryImage) => {
+  const formData = new FormData();
+  formData.append("target_image", targetImage);
+  formData.append("query_image", queryImage);
+  formData.append("key", SKY_LARK_API_KEY);
+
+  const config = {
+    headers: {
+      accept: "application/json",
+      "Content-Type": "multipart/form-data",
+    },
+  };
+
+  try {
+    const { data } = await axios.post(SKY_LARK_API, formData, config);
+    if (data && data.id) {
+      const res = await getMatchResultById(data.id);
+      return res;
+    }
+  } catch (err) {
+    console.log("Error in Skylark API POST", err);
+  }
 };

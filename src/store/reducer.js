@@ -6,7 +6,6 @@ import {
   RESET_STEP,
   UI_LOADING_START,
   UI_LOADING_END,
-  ADD_INITIAL_RESPONSES,
   ADD_MATCH_RESULTS,
 } from "./types";
 
@@ -16,7 +15,6 @@ export const initialState = {
   queryImage: null,
   stepCount: 1,
   maxRefImages: 2,
-  initialResponses: [],
   matchResults: [],
 };
 
@@ -56,11 +54,6 @@ export const reducer = (state, action) => {
       return {
         ...state,
         ...initialState,
-      };
-    case ADD_INITIAL_RESPONSES:
-      return {
-        ...state,
-        initialResponses: [...state.initialResponses, action.payload],
       };
     case ADD_MATCH_RESULTS:
       return {

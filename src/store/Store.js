@@ -15,9 +15,7 @@ const Store = (props) => {
   const { children } = props;
 
   return (
-    <Context.Provider value={[state, dispatch]} displayName="Global State">
-      {children}
-    </Context.Provider>
+    <Context.Provider value={[state, dispatch]}>{children}</Context.Provider>
   );
 };
 
