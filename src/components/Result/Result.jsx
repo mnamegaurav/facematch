@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Button, Typography } from "@material-ui/core";
+import { Grid, Button, Typography, Divider } from "@material-ui/core";
 
 import { useStore } from "../../store";
 import { getMatchResults } from "../../utils/skyLark";
@@ -16,15 +16,14 @@ function Result(props) {
 
   React.useEffect(() => {
     if (matchResults.length < maxRefImages && !matchedImage) {
-      refImages.forEach((targetImage) => {
-        getMatchResults(targetImage, queryImage).then((data) => {
-          console.log("trying to get data...", data);
-          data &&
-            dispatch({
-              type: ADD_MATCH_RESULTS,
-              payload: data,
-            });
-        });
+      refImages.forEach(async (targetImage) => {
+        console.log("trying to get data...");
+        const { data } = await getMatchResults(targetImage, queryImage);
+        data &&
+          dispatch({
+            type: ADD_MATCH_RESULTS,
+            payload: data,
+          });
       });
     }
 
@@ -39,12 +38,7 @@ function Result(props) {
       const res = JSON.parse(result.response_json);
       if (res.recognitions[0][1] > 0) {
         console.log("got the match", refImages[index]);
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          reader.readAsDataURL(refImages[index]);
-          setMatchedImage(reader.result);
-        };
+        setMatchedImage(URL.createObjectURL(refImages[index]));
       }
     });
   };
@@ -55,21 +49,32 @@ function Result(props) {
     <div>
       <Grid
         container
-        spacing={2}
+        spacing={5}
         direction="column"
         justify="center"
         alignItems="center"
         alignContent="center"
       >
-        <Grid item xs={6} md={12}>
+        <Grid item xs={12}>
+          <Typography variant="h4">---Results---</Typography>
+        </Grid>
+        <Grid item xs={6} lg={12}>
+          <Typography variant="h5">Matched Image</Typography>
           {matchedImage ? (
             <img src={matchedImage} alt="matched" />
           ) : (
             <Typography variant="h4">No Matches Found</Typography>
           )}
         </Grid>
-        <Grid item xs={6} md={12}>
-          {queryImage && <img src={queryImage} alt="query" />}
+        <Grid item xs={6} lg={12}>
+          <Typography variant="h5">Query Image</Typography>
+          {queryImage && (
+            <img
+              src={URL.createObjectURL(queryImage)}
+              alt="query"
+              height="200"
+            />
+          )}
         </Grid>
         <Grid container item xs={12} sm={6}>
           <Grid item xs={4}>

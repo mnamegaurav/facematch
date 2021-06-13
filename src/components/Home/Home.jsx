@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, Typography } from "@material-ui/core";
 
 import ImageDropzone from "../common/ImageDropzone";
 import { getCroppedFaces } from "../../utils/faceApi";
@@ -31,6 +31,9 @@ function Home(props) {
         alignItems="center"
         alignContent="center"
       >
+        <Grid item xs={12}>
+          <Typography variant="h4">Upload Reference Images</Typography>
+        </Grid>
         <Grid item xs={12}>
           <ImageDropzone
             onChange={handleChange}
