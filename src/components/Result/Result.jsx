@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Button, Typography, Divider } from "@material-ui/core";
+import { Grid, Button, Typography } from "@material-ui/core";
 
 import { useStore } from "../../store";
 import { getMatchResults } from "../../utils/skyLark";
@@ -17,7 +17,6 @@ function Result(props) {
   React.useEffect(() => {
     if (matchResults.length < maxRefImages && !matchedImage) {
       refImages.forEach(async (targetImage) => {
-        console.log("trying to get data...");
         const { data } = await getMatchResults(targetImage, queryImage);
         data &&
           dispatch({
@@ -33,7 +32,6 @@ function Result(props) {
   }, [matchResults]);
 
   const getMatchResponseImages = () => {
-    console.log("gettingmatches...", matchResults);
     matchResults.forEach((result, index) => {
       const res = JSON.parse(result.response_json);
       if (res.recognitions[0][1] > 0) {
@@ -42,8 +40,6 @@ function Result(props) {
       }
     });
   };
-
-  console.log(matchedImage);
 
   return (
     <div>
