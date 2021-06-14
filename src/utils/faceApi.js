@@ -8,7 +8,7 @@ export const getCroppedFaces = (images) => {
   return images;
 };
 
-export const cropAFace = async (image) => {
+export const cropAFace = (image) => {
   // convert the image into croppedImage
   // logic to convert it using faceapi
   const croppedFace = image;
